@@ -1,11 +1,18 @@
 pipeline {
-    agent {
-        docker { image 'butroskali/robo_python' }
-    }
+    agent any
     stages {
         stage('Test') {
+            agent {
+                docker {
+                    image 'butroskali/robo_python'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
+                }
+            }
             steps {
-                sh 'invoke  robot'
+                sh 'invoke robot'
             }
         }
     }
