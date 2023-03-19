@@ -1,9 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'butroskali/robo_python' }
+    }
     stages {
-        stage('Stage 1') {
+        stage('Test') {
             steps {
-                echo 'Hello world!'
+                sh 'invoke  robot'
             }
         }
     }
